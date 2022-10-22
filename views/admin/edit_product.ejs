@@ -1,0 +1,61 @@
+<%- include('../_layouts/adminheader') %>
+  <div class="container">
+    <%- messages('messages', locals) %></div>
+
+  <br><br>
+<h2 class="page-title">Edit a product</h2>
+<a href="/admin/products" class="btn btn-primary">Back to all products</a>
+<br><br>
+
+<form method="post" action="/admin/products/edit-product/<%= id %>" enctype="multipart/form-data" >
+    <div class="form-group">
+        <label for="">Title</label>
+        <input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Title">
+    </div>
+
+    <div class="form-group">
+        <label for="">Description</label>
+        <input type="text" class="form-control" name="desc" value="<%= desc %>" placeholder="Description">
+    </div>
+
+    <div class="form-group">
+        <label for="">Category</label>
+        <select name="category" class="form-control">
+            <% categories.forEach(function(cate) { %>
+                <option value="<%= cate.slug %>"
+                    <% if (cate.slug == category) { %>
+                        selected="selected"
+                        <% } %>
+                ><%= cate.title %></option>
+                <% }); %>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="">Price</label>
+        <input type="text" class="form-control" name="price" value="<%= price %>" placeholder="Price">
+    </div>
+
+    <div class="form-group">
+        <label for="">Current image</label>
+        <p>
+            <% if (image == "")  { %>
+                <img src="/images/shop-img.jpg" alt="">
+            <% } else { %>
+                <img src="/product_images/<%= id %>/<%= image %>" alt="">
+            <% } %>
+
+        </p>
+    </div>
+
+    <div class="form-group">
+        <label for="">Image</label>
+        <input type="file" class="form-control" name="image" id="img">
+        <img src="#" id="imgPreview" alt="">
+    </div>
+    <input type="hidden" name="id" value="<%= id %>">
+ <br>
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>
